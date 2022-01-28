@@ -1,0 +1,27 @@
+{
+  "name": "respress",
+  "version": "1.0.0",
+  "description": "A RESP 'Redis Serialization Protocol' library implementation to generate a server, uses a similar approach to express to define you serer, making it easy and fast. ",
+  "main": "resp-server/_server.js",
+  "dependencies": {
+    "debug": "^4.3.3",
+    "flatten-anything": "^3.0.2",
+    "nanoid": "^3.2.0",
+    "string-argv": "^0.3.1",
+    "yargs": "^17.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "resp",
+    "express",
+    "server",
+    "redis",
+    "protocol",
+    "parser"
+  ],
+  "author": "Yousef Wadi",
+  "license": "MIT"
+}

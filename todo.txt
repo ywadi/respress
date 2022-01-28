@@ -1,0 +1,3 @@
+- TODO Add WS support
+- Add middleware, maybe ? cant think of a good usecase 
+- refactor code to make better readable 
