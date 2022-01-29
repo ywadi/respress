@@ -11,6 +11,9 @@ app.auth((req, res) => {
     }
 })
 
+app.cmd("sendObject", (req,req)=>{
+    res.send({name:"yousef", lastname:"wadi"})
+})
 
 app.cmd("COMMAND", (req, res) => {
     req.client.setClientVar("cmded", true)
