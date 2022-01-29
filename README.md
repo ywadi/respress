@@ -124,3 +124,7 @@ The apis can be found in the DOCs folder. Links as follows;
 # Contribution
 
 Contributions are welcome, if you are interested please let me know and would be happy to get you on-board.
+Needs help with 
+- Unit Tests 
+- Code Refactor / Cleanup 
+- Add middleware for pre-request and pre-response 
