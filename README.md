@@ -35,6 +35,13 @@ Now you are ready to spin off your server, it is very similar to express, the id
     //Start server and listen to port 9001
     app.listen({port:9001} , (server) => {});
 
+Now you can use the server, lets use redis-cli to connect 
+
+	$ redis-cli -p 9001 -a letMeIn!
+	127.0.0.1:9001> ping
+	"PONG"
+	127.0.0.1:9001> 
+
 Yes, it is that simple. Now lets get into details. 
 
 ### Registering Commands 
