@@ -1,5 +1,4 @@
 let { Buffer } = require('buffer');
-let { flatten } = require('flatten-anything');
 
 function encode(request, encodeArray = true) {
     if (request === null) {
@@ -18,11 +17,7 @@ function encode(request, encodeArray = true) {
     }
     let value
     if (typeof request === 'object') {
-        let resp = flatten(request);
-        value = [];
-        for (r in resp) {
-            value.push(`${r} : ${resp[r]}`)
-        }
+        value = JSON.stringify(request);
         return encode(value);
     }
     else if (typeof request === 'function') {

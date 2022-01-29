@@ -5,7 +5,6 @@
   "main": "resp-server/_server.js",
   "dependencies": {
     "debug": "^4.3.3",
-    "flatten-anything": "^3.0.2",
     "nanoid": "^3.2.0",
     "string-argv": "^0.3.1",
     "yargs": "^17.3.1"
