@@ -115,6 +115,7 @@ class RESP_Server {
         debug(`Executing ${cmd} for ${Object.entries(client.con.address())}.`)
         let req = {};
         req.params = this.cmds.parse(cmd);
+
         delete req.params.$0
         /**
          * req.client has the client.id as well as 3 helper functions 
@@ -210,7 +211,12 @@ class RESP_SERVER_CLIENT {
             this.respServer.execCmd(msg, this)
         }
         else if ((this.con.isAuthenticated && this.requiresAuth) || !this.requiresAuth) {
-            this.respServer.execCmd(msg, this)
+            try{this.respServer.execCmd(msg, this)}
+            catch(error){
+                this.con.send(error)
+                return false;
+            }
+            
         } else {
             debug(`Authentication failed for ${Object.entries(this.con.address())}.`)
             this.con.send(new Error("Authentication is required.."));
