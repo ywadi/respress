@@ -13,6 +13,7 @@ app.auth((req, res) => {
 
 
 app.cmd("COMMAND", (req, res) => {
+    req.client.setClientVar("cmded", true)
     res.send(app.cmds.commandList)
 })
 
@@ -26,6 +27,7 @@ app.cmd("CLIENT <subcommand>", (req, res) => {
 })
 
 app.cmd("PING [message...]", (req, res) => {
+    console.log("User called COMMAND before?" ,req.client.getClientVar("cmded"));
     if (req.params.message) {
         res.send(req.params.message);
     }

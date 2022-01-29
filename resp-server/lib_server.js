@@ -35,7 +35,6 @@ class RESP_Server {
 
     /**
      * Handles the new connections to the RESP server, uses TCP 
-     * @private
      * @param {Socket} con is the tcp.socket 
      */
     handleConnection(con) {
@@ -67,7 +66,6 @@ class RESP_Server {
 
     /**
      * A function called by the client on the server instance when a client closes 
-     * @private
      * @param {RESP_SERVER_CLIENT} client is the instance of RESP_SERVER_CLIENT. 
      */
     onConClose(client) {
@@ -78,7 +76,6 @@ class RESP_Server {
 
     /**
      * A function called by the client on the server instance when a client errors out.
-     * @private
      * @param {Error} err The error that has caused the connection drop
      * @param {RESP_SERVER_CLIENT} client The RESP_SERVER_CLIENT client instance 
      */
@@ -111,7 +108,6 @@ class RESP_Server {
 
     /**
      * Executes the command recieved by parsing it, looking the cb function and executing the cb
-     * @private
      * @param {String} cmd The command string 
      * @param {RESP_SERVER_CLIENT} client the RESP_SERVER_CLIENT instance 
      */
@@ -120,7 +116,18 @@ class RESP_Server {
         let req = {};
         req.params = this.cmds.parse(cmd);
         delete req.params.$0
-        req.client = client.id;
+        /**
+         * req.client has the client.id as well as 3 helper functions 
+         * setClientVar: allows developer to add a variable to the client connected 
+         * getClientVar: allows developer to retrive stored variable on client
+         * delClientVar: allows developer to delete the stored variable 
+         */
+        req.client = {
+            id: client.id,
+            setClientVar: client.setClientVar.bind(client),
+            getClientVar: client.getClientVar.bind(client),
+            delClientVar: client.delClientVar.bind(client)
+        };
         let res = { send: client.con.send, auth: client.con.auth };
 
         if (this.cmds.cmdCallbacks.hasOwnProperty(req.params._[0])) {
@@ -152,11 +159,10 @@ class RESP_Server {
 
 /**
  * The client definition, each connected client will have an instance.
- * @private
+ * 
  */
 class RESP_SERVER_CLIENT {
     /**
-     * @private
      * @param {Socket} con The client's Socket 
      * @param {RESP_Server} respServer the Server that created the client 
      */
@@ -169,11 +175,12 @@ class RESP_SERVER_CLIENT {
         this.con.once('close', this.onConClose.bind(this));
         this.con.on('error', this.onConError.bind(this));
         this.con.on('data', this.dataHandler.bind(this));
+        this.clientVars = {};
         debug(`New client has been created with id ${this.id} and origin ${Object.entries(this.con.address())}`)
     }
 
     /**
-     * @private
+     * 
      * Handles when the client socket is closed 
      */
     onConClose() {
@@ -212,6 +219,30 @@ class RESP_SERVER_CLIENT {
         }
     }
 
+    /**
+     * Allows the developer to get a client variable previously set 
+     * @param {String} variableName The name of the variable  
+     * @returns {Any} variable that has been stored 
+     */
+    getClientVar(variableName) { return this.clientVars[variableName] }
+    /**
+     * Allows developer to set a variable for a client that can be used later 
+     * @param {String} variableName The name of the variable 
+     * @param {Any} variableValue The value of the variable 
+     */
+    setClientVar(variableName, variableValue) { this.clientVars[variableName] = variableValue; }
+
+    /**
+     * Delete a previosuly stored client variable 
+     * @param {String} variableName The name of the variable to be deleted 
+     */
+    delClientVar(variableName) {
+        try {
+            delete this.clientVars[variableName]
+        } catch (error) {
+            debug(error)
+        }
+    }
 }
 
 module.exports = RESP_Server;
