@@ -44,6 +44,8 @@ Now you can use the server, lets use redis-cli to connect
 
 Yes, it is that simple. Now lets get into details. 
 
+Take a look at the example server, will make your life easier. [Link to example](https://github.com/ywadi/respress/blob/main/example/server.js)
+
 ### Registering Commands 
 As seen before to register commands its simple. There are many things you can use to register commands and will be described below. 
 #### A simple command with no arguments 
