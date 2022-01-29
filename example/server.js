@@ -11,7 +11,7 @@ app.auth((req, res) => {
     }
 })
 
-app.cmd("sendObject", (req,req)=>{
+app.cmd("sendObject", (req,res)=>{
     res.send({name:"yousef", lastname:"wadi"})
 })
 
