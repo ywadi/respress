@@ -1,5 +1,11 @@
 let { Buffer } = require('buffer');
 
+/**
+ * Encodes a message to the RESP protocol 
+ * @param {String | Array | Object | Number | Function} request 
+ * @param {Boolean} encodeArray 
+ * @returns RESP encoded value 
+ */
 function encode(request, encodeArray = true) {
     if (request === null) {
         return '$-1\r\n'
@@ -27,6 +33,13 @@ function encode(request, encodeArray = true) {
     }
     return `$${value.length}\r\n${value}\r\n`
 }
+
+/**
+ * Decodes the message of from RESP protocol to its proper type 
+ * @param {*} content The content to be decoded 
+ * @param {*} startIndex Where to start the decoding 
+ * @returns {String | Array | Object | Number | Function}
+ */
 function decodeProgressive(content, startIndex) {
     let currentIndex = startIndex
     const type = content.toString('utf8', currentIndex, currentIndex + 1)
@@ -100,6 +113,11 @@ function decodeProgressive(content, startIndex) {
     throw new Error('Malformed Input')
 }
 
+/**
+ * The decoding function to decode RESP
+ * @param {String} givenContent 
+ * @returns {String | Array | Object | Number | Function}
+ */
 function decode(givenContent) {
     let index = 0
     const value = []

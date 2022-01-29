@@ -1,4 +1,4 @@
-let RESP_Server = require("../resp-server/_server");
+let RESP_Server = require("../resp-server/lib_server.js");
 let app = new RESP_Server();
 
 app.auth((req, res) => {

@@ -2,7 +2,7 @@
   "name": "respress",
   "version": "1.0.0",
   "description": "A RESP 'Redis Serialization Protocol' library implementation to generate a server, uses a similar approach to express to define you serer, making it easy and fast. ",
-  "main": "resp-server/_server.js",
+  "main": "resp-server/lib_server.js",
   "dependencies": {
     "debug": "^4.3.3",
     "nanoid": "^3.2.0",
