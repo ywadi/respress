@@ -116,3 +116,5 @@ You can use multiple methods to register your positional arguments, below are so
     // req.params.files will be an array with all messages assigned.
     download <url> [files..]
 
+# Contribution 
+Contributions are welcome, if you are interested please let me know and would be happy to get you on-board.
